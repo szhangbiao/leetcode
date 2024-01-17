@@ -61,7 +61,17 @@
 // @lc code=start
 class Solution {
     fun reverse(x: Int): Int {
-
+        var target = x
+        var rev = 0
+        while(target != 0) {
+            if (rev > Int.MAX_VALUE / 10 || rev < Int.MIN_VALUE / 10) {
+                return 0
+            }
+            val digit = target % 10
+            target /= 10
+            rev = rev * 10 + digit
+        }
+        return rev
     }
 }
 // @lc code=end
