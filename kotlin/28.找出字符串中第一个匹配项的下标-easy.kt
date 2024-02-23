@@ -49,6 +49,44 @@
 // @lc code=start
 class Solution {
     fun strStr(haystack: String, needle: String): Int {
+        if(needle.isEmpty()) return 0
+        val next = getNextIntArray(needle)
+        var i = 0
+        var j = 0
+        while(i < haystack.length){
+            while(j > 0 && haystack[i] != needle[j]){
+                j = next[j-1]
+            }
+            if(haystack[i] == needle[j]){
+                j++;
+            }
+            if(j == needle.length){
+                return i - j + 1
+            }
+            i++
+        }
+        return -1
+    }
+
+    fun getNextIntArray(needle: String): IntArray {
+        val next = IntArray(needle.length)
+        var i = 1
+        var j = 0
+        while(i < needle.length){
+            while(j > 0 && needle[i] != needle[j]){
+                j = next[j-1]
+            }
+            if(needle[i] == needle[j]){
+                j++
+            }
+            next[i] = j
+            i++
+        }
+        return next
+    }
+
+    // 解法一
+    fun strStrSolution1(haystack: String, needle: String): Int {
         if(needle.length > haystack.length) return -1
         val len = haystack.length
         var i = 0
