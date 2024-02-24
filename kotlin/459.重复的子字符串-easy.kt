@@ -54,11 +54,24 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution {             
     fun repeatedSubstringPattern(s: String): Boolean {
-        //TODO KMP 解法
+        //KMP 解法
+        if(s.isEmpty()) return false
+        val n = s.length
+        val next = IntArray(n)
+        var j = 0
+        for(i in 1 until n){
+            while(j > 0 && s[i] != s[j]){
+                j = next[j-1]
+            }
+            if(s[i] == s[j]){
+                j++
+            }
+            next[i] = j
+        }
+        return next[n - 1] != 0 && n % (n - next[n - 1]) == 0
     }
-
 
     fun repeatedSubstringPatternSolution1(s: String): Boolean {
         val str = s + s
