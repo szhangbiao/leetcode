@@ -47,7 +47,43 @@
 
 // @lc code=start
 class Solution {
+    // 动态规划版
     fun longestPalindrome(s: String): String {
+        val len = s.length
+        if(len < 2){
+            return s
+        }
+        var max = 1
+        var begin = 0
+        val dp = Array(len){BooleanArray(len)}
+        for(i in 0 until len){
+            dp[i][i] = true
+        }
+        for(l in 2..len){
+            for(i in 0 until len){
+                var j = i + l - 1
+                if(j >= len){
+                    break
+                }
+                if(s[i] != s[j]){
+                    dp[i][j] = false
+                } else {
+                    if(j - i < 3){
+                        dp[i][j] = true
+                    } else {
+                        dp[i][j] = dp[i + 1][j - 1]
+                    }
+                }
+                if(dp[i][j] && j - i + 1 > max){
+                    max = j - i + 1
+                    begin = i
+                }
+            }
+        }
+        return s.substring(begin, begin + max)
+    }
+
+    fun longestPalindrome1(s: String): String {
         var left = 0
         var right = 0
         for(i in 0 until s.length){
