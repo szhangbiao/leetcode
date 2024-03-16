@@ -63,14 +63,14 @@ class Solution {
     fun fib(n: Int): Int {
         if(n < 2) return n
         var a = 0
-        var b = 0
-        var c = 1
-        for(i in 0 until n){
+        var b = 1
+        var c = 0
+        for(i in 2..n) {
+            c = a + b
             a = b
             b = c
-            c = a + b
         }
-        return b
+        return c
     }
 }
 // @lc code=end
