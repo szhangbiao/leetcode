@@ -52,13 +52,14 @@
 // @lc code=start
 class Solution {
     fun climbStairs(n: Int): Int {
-        var p = 0
-        var q = 0
-        var r = 1
-        for(i in 1..n){
-            p = q
-            q = r
-            r = p + q
+        if(n <= 2) return n
+        var a = 1
+        var b = 2
+        var r = 0
+        for(i in 3..n) {
+            r = a + b
+            a = b
+            b = r
         }
         return r
     }
